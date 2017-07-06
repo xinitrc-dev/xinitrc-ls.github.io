@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Random.Fox</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+	var IMAGE_NUM = 27;
+
+	function getImageTag() {
+		var img = '<img src=\images\\';
+		var randomNum = Math.floor((Math.random() * IMAGE_NUM)+1);
+		img += randomNum + '.jpg';
+		img += '>';
+		return img;
+	}
+</script>
+</head>
+<body>
+<script type="text/javascript">
+  document.write(getImageTag());
+</script>
+</body>
+</html>
