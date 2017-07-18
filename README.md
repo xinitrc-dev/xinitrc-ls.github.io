@@ -1,3 +1,3 @@
-You can use https://xinitrc-ls.github.io/foxes/ to  get a random picture of a fox!
+Now, you can use http://randomfox.ca/ to get a random picture of a fox!
 
-If you'd like to contribute, feel free to leave a pull request to https://xinitrc-ls.github.io/foxes/images/
+If you'd like to contribute, feel free to leave a pull request at https://github.com/xinitrc-ls/randomfox.ca
