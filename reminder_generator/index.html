@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reminder Generator</title>
+    <style>
+        body {
+            font-size: larger;
+            font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
+            text-align: center;
+            background: #292929;
+            color: #c0c0c0;
+        }
+
+        h1,h2,h3,h4,h5,h6 {
+            color: #fff;
+        }
+
+        div.fixed-result {
+            /*background-color: #FFA500;*/
+            background: #191919;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        a {
+            color: #fb2;
+        }
+
+        a:hover {
+            color: #23527c;
+        }
+
+        input {
+            background-color: #ccc;
+        }
+
+        table {
+            margin:auto;
+            padding: auto;
+            text-align: left;
+        }
+
+        th.important-text {
+            color: #63a35c;
+        }
+
+        input[type=submit] {
+            font-size: larger;
+        }
+
+        /* Tooltip container */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Ub3R-Bot's Reminder Generator</h2>
+
+<p>More information available here: <a href="https://ub3r-b0t.com/docs/articles/commands.html#timer">Docs</a></p>
+
+<form id="form">
+    <div class="tooltip">Recipient:
+        <span class="tooltiptext">You can use "me", tag someone or just use regular words.</span>
+    </div><br>
+    <input type="text" name="recipient" required><br>
+    Time:<br>
+    <input type="time" name="time" required> <br>
+    Date:<br>
+    <input type="date" name="date" required> <br>
+    Reminder text:<br>
+    <input type="text" name="reminder_text" required><br>
+    <br>
+    <input type="submit" value="Generate!">
+</form>
+
+<div class="fixed-result" id="fixed-result">
+    <table>
+        <tr>
+            <th class="important-text">Command to use:  </th>
+            <th id="fixed-result-command">remind <i><u>recipient</u></i> at <i><u>time</u></i> to <i><u>reminder_text</u></i></th>
+        </tr>
+        <tr>
+            <th class="important-text">Result:  </th>
+            <th id="fixed-result-response"></th>
+        </tr>
+    </table>
+</div>
+
+
+<script>
+    var today = new Date();
+    var curr_time = today.getHours().toString().padStart(2, "0") + ":" + (today.getMinutes() + 1).toString().padStart(2, "0");
+    var curr_date = today.getFullYear() + "-" + (today.getMonth() + 1).toString().padStart(2, "0") + "-" + (today.getDate()).toString().padStart(2, "0");
+    document.getElementsByName("time")[0].setAttribute("min", curr_time);
+    document.getElementsByName("time")[0].setAttribute("value", curr_time);
+    document.getElementsByName("date")[0].setAttribute("min", curr_date);
+    document.getElementsByName("date")[0].setAttribute("value", curr_date);
+    var timezone_offset = today.getTimezoneOffset() / 60 * -1;
+
+    function updateResult(e) {
+        e.preventDefault();
+
+        var recipient = document.getElementsByName("recipient")[0].value;
+        var time = document.getElementsByName("time")[0].value;
+        var date = document.getElementsByName("date")[0].value;
+        var reminder_text = document.getElementsByName("reminder_text")[0].value;
+
+        if(date==curr_date) {
+            document.getElementById("fixed-result-command").innerText = "remind " + recipient + " at " + time + " to " + reminder_text;
+            document.getElementById("fixed-result-response").innerText = (recipient == "me" ? "@you" : recipient) + ": " + reminder_text;
+        } else {
+            document.getElementById("fixed-result-command").innerText = "remind " + recipient + " at " + time + " " + timezone_offset + " on " + date.replace(/-/g, "/") + " to " + reminder_text;
+            document.getElementById("fixed-result-response").innerText = (recipient == "me" ? "@you" : recipient) + ": " + reminder_text;
+        }
+    }
+
+    var form = document.getElementById("form");
+    if(form.addEventListener) {
+        form.addEventListener("submit", function(e) { updateResult(e); }, false);
+    } else if (form.attachEvent) {
+        form.attachEvent("onsubmit", function(e) { updateResult(e) });
+    }
+</script>
+</body>
+</html>
