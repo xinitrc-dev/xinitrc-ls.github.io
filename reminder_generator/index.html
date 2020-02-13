@@ -148,6 +148,16 @@
     } else if (form.attachEvent) {
         form.attachEvent("onsubmit", function(e) { updateResult(e) });
     }
+
+    var time_input = document.getElementsByName("time")[0];
+    var date_input = document.getElementsByName("date")[0];
+    date_input.addEventListener('change', function(e) {
+        if(date_input.value != curr_date) {
+            time_input.removeAttribute("min");
+        } else {
+            time_input.setAttribute("min", curr_time);
+        }
+    });
 </script>
 </body>
 </html>
