@@ -134,7 +134,7 @@
         var reminder_text = document.getElementsByName("reminder_text")[0].value;
 
         if(date==curr_date) {
-            document.getElementById("fixed-result-command").innerText = "remind " + recipient + " at " + time + " to " + reminder_text;
+            document.getElementById("fixed-result-command").innerText = "remind " + recipient + " at " + time + " " + timezone_offset + " to " + reminder_text;
             document.getElementById("fixed-result-response").innerText = (recipient == "me" ? "@you" : recipient) + ": " + reminder_text;
         } else {
             document.getElementById("fixed-result-command").innerText = "remind " + recipient + " at " + time + " " + timezone_offset + " on " + date.replace(/-/g, "/") + " to " + reminder_text;
