@@ -124,6 +124,7 @@
     document.getElementsByName("date")[0].setAttribute("min", curr_date);
     document.getElementsByName("date")[0].setAttribute("value", curr_date);
     var timezone_offset = today.getTimezoneOffset() / 60 * -1;
+	if(timezone_offset > 0) { timezone_offset = "+" + timezone_offset.toString() }
 
     function updateResult(e) {
         e.preventDefault();
