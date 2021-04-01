@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>Furry Speech</title>
+
+    <meta charset="utf-8" />
+
+    <meta name="title" content="Furry Speech"/>
+    <meta name="description" content="Furry speech encoder/decoder"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="Furry Speech"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://xinitrc-dev.github.io/xinitrc-ls.github.io/furry_speech/"/>
+    <meta property="og:description" content="Furry speech encoder/decoder"/>
+
+    <style>
+        body {
+            padding-top: 50px;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function convert() {
+            let human_text = document.getElementById("human_speech").value;
+            let furry_text = document.getElementById("furry_speech").value;
+
+            if(human_text == "") {
+                furryToHuman(furry_text);
+            } else {
+                humanToFurry(human_text);
+            }
+        }
+
+        function furryToHuman(original_text) {
+
+            if(original_text == "") {
+                return;
+            }
+
+            let output = document.getElementById("human_speech");
+            let split_input = original_text.match(/.{1,3}/g);
+            let temp = "";
+            output.value = "";
+            for (let i = 0; i < split_input.length; i++) {
+                if(split_input[i] == "OwO") {
+                    temp += "0";
+                } else {
+                    temp += "1";
+                }
+
+                if (temp.length === 8) {
+                    output.value += String.fromCharCode(parseInt(temp, 2));
+                    temp = "";
+                }
+            }
+        }
+
+        function humanToFurry(original_text) {
+            if(original_text == "") {
+                return;
+            }
+
+            let output = document.getElementById("furry_speech");
+            let temp;
+            output.value = "";
+            for (let i = 0; i < original_text.length; i++) {
+                temp = original_text[i].charCodeAt(0).toString(2).padStart(8, '0');
+
+                for (let j = 0; j < temp.length; j++) {
+                    if(temp[j] == "0") {
+                        output.value += "OwO";
+                    } else {
+                        output.value += "UwU";
+                    }
+                }
+
+            }
+        }
+
+        // date_input.addEventListener('change', function(e) {
+        //     if(date_input.value != curr_date) {
+        //         time_input.removeAttribute("min");
+        //     } else {
+        //         time_input.setAttribute("min", curr_time);
+        //     }
+        // });
+    </script>
+</head>
+<body>
+
+<textarea id="human_speech" name="human_speech" rows="20" cols="50" placeholder="Enter Human Speech here"></textarea>
+
+<button type="button" onclick="convert();">Convert</button>
+
+<textarea id="furry_speech" name="furry_speech" rows="20" cols="50" placeholder="Enter Furry Speech here"></textarea>
+</body>
+</html>
